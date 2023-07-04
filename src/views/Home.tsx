@@ -10,6 +10,8 @@ type HomeProps = {
 
 export const Home = ({ user, flashMessage}:  HomeProps) => {
     return (
-        <div>Home</div>;
+        <div>
+            <h1>Welcome {user?.username}</h1>
+        </div>
     )
 }

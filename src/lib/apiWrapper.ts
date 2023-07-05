@@ -1,29 +1,16 @@
 import axios, { AxiosResponse } from "axios";
 import { UserType } from "../types/user";
+import {
+  APIResponse,
+  TokenType,
+  apiClientNoAuth,
+  apiClientBasicAuth,
+  apiClientTokenAuth,
+} from "./auth";
+import { CoffeeType } from "../types/coffee";
 
-const base: string = "https://brew-stock.onrender.com";
-const userEndpoint: string = "/user";
-const coffeeEndpoint = "/coffee";
-
-const apiClientNoAuth = () => axios.create({ baseURL: base });
-const apiClientBasicAuth = (username: string, password: string) =>
-  axios.create({
-    baseURL: base,
-    headers: { Authorization: "Bearer " + btoa(username + ":" + password) },
-  });
-
-const apiClientTokenAuth = (token: string) =>
-  axios.create({
-    baseURL: base,
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  });
-
-type APIResponse<T> = {
-  error: string | undefined;
-  data: T | undefined;
-};
+const userEndpoint = "/users";
+const coffeeEndpoint = "/coffees";
 
 export const register = async (
   newUser: UserType
@@ -39,30 +26,34 @@ export const register = async (
     if (axios.isAxiosError(err)) {
       error = err.response?.data.error;
     } else {
-      error = "Something went wrong";
+      error = "Something went wrong during register";
     }
   }
   return { error, data };
 };
 
-export const login = async (username: string, password: string): Promise<APIResponse<UserType>> => {
-    let error, data;
+export const login = async (
+  email: string,
+  password: string
+): Promise<APIResponse<TokenType>> => {
+  let error, data;
   try {
-    const response: AxiosResponse<UserType> = await apiClientBasicAuth(username, password).get("/token")
+    const response: AxiosResponse<TokenType> = await apiClientBasicAuth(
+      email,
+      password
+    ).get("/token");
     data = response.data;
   } catch (err) {
     if (axios.isAxiosError(err)) {
       error = err.response?.data.error;
     } else {
-      error = "Something went wrong";
+      error = "Something went wrong during login";
     }
   }
   return { error, data };
-}
+};
 
-export const getMe = async (
-  token: string
-): Promise<AxiosResponse<UserType>> => {
+export const getMe = async (token: string): Promise<APIResponse<UserType>> => {
   let error, data;
   try {
     const response: AxiosResponse<UserType> = await apiClientTokenAuth(
@@ -73,11 +64,64 @@ export const getMe = async (
     if (axios.isAxiosError(err)) {
       error = err.response?.data.error;
     } else {
-      error = "Something went wrong";
+      error = "Something went wrong during getMe";
     }
   }
-  return {
-    error,
-    data,
-  };
+  return { error, data };
+};
+
+export const getAllCoffees = async (): Promise<APIResponse<CoffeeType[]>> => {
+  let error, data;
+  try {
+    const response: AxiosResponse<CoffeeType[]> = await apiClientNoAuth().get(
+      coffeeEndpoint
+    );
+    data = response.data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      error = err.message;
+    } else {
+      error = "Something went wrong during getAllCoffees";
+    }
+  }
+  return { error, data };
+};
+
+export const createCoffee = async (
+  newCoffee: CoffeeType,
+  token: string
+): Promise<APIResponse<CoffeeType>> => {
+  let error, data;
+  try {
+    const response: AxiosResponse<CoffeeType> = await apiClientTokenAuth(
+      token
+    ).post(coffeeEndpoint, newCoffee);
+    data = response.data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      error = err.response?.data.error;
+    } else {
+      error = "Something went wrong during createCoffee";
+    }
+  }
+  return { error, data };
+};
+
+export const deleteCoffee = async (
+  coffeeId: number,
+  token: string
+): Promise<APIResponse<string>> => {
+  let error, data;
+  try {
+    const response: AxiosResponse<{ success: string }> =
+      await apiClientTokenAuth(token).delete(coffeeEndpoint + "/" + coffeeId);
+    data = response.data.success;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      error = err.response?.data.error;
+    } else {
+      error = "Something went wrong during deleteCoffee";
+    }
+  }
+  return { error, data };
 };

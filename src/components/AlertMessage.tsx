@@ -10,6 +10,6 @@ type AlertMessageProps = {
 
 export const AlertMessage = ({ message, category, flashMessage,}: AlertMessageProps) => {
     return (
-        <div>AlertMessage</div>
+        <div>{message}</div>
     )
 }

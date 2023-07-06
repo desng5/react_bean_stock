@@ -3,7 +3,9 @@ import { CoffeeType } from "../types/coffee";
 
 type CoffeeFormProps = {
   handleSubmit: (e: FormEvent) => void;
-  handleChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void;
+  handleChange: (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => void;
   newCoffee: CoffeeType;
 };
 

@@ -1,4 +1,3 @@
-import { UserType } from "./user";
 
 export type CoffeeType = {
   id?: number;
@@ -10,6 +9,6 @@ export type CoffeeType = {
   brew_method?: string;
   roaster?: string;
   image_url?: string;
-  brewer?: UserType;
   date_created?: string;
+  user_id?: number;
 };

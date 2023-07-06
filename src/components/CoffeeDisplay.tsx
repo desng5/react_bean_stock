@@ -37,10 +37,10 @@ export const CoffeeDisplay = ({
       <div className="w-48">
         <img src={coffee.image_url} alt={coffee.name} />
       </div>
-      <div>Created by: {coffee.brewer?.username}</div>
+      <div>Created by: {user?.username}</div>
       <div>on {date.toString()}</div>
       <div>
-        {coffee.brewer?.username === user?.username ? (
+        {coffee.user_id === user?.id ? (
           <button onClick={handleDelete}>Delete Coffee</button>
         ) : null}
       </div>

@@ -56,7 +56,9 @@ export const Home = ({ user, flashMessage }: HomeProps) => {
       flashMessage(newCoffee.name + " brewed successfully", "success");
     }
   };
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>): void => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ): void => {
     setNewCoffee({ ...newCoffee, [e.target.name]: e.target.value });
   };
 
@@ -72,29 +74,34 @@ export const Home = ({ user, flashMessage }: HomeProps) => {
           {displayCoffee ? "Close X" : "Brew +"}
         </button>
       )}
-      {displayCoffee && (
+      {displayCoffee && user && (
         <CoffeeForm
           handleSubmit={handleFormSubmit}
           handleChange={handleInputChange}
           newCoffee={newCoffee}
         />
       )}
-      {coffees.map((coffee) => (
-        <CoffeeDisplay
-          key={coffee.id}
-          coffee={coffee}
-          user={user}
-          setUpdate={setUpdate}
-          update={update}
-        />
-      ))}
-      <button
-        onClick={() => {
-          setCoffees([]);
-        }}
-      >
-        Dump All Coffees
-      </button>
+      {user &&
+        coffees
+          .filter((coffee) => coffee.user_id === user.id)
+          .map((coffee) => (
+            <CoffeeDisplay
+              key={coffee.id}
+              coffee={coffee}
+              user={user}
+              setUpdate={setUpdate}
+              update={update}
+            />
+          ))}
+      {user && (
+        <button
+          onClick={() => {
+            setCoffees([]);
+          }}
+        >
+          Dump All Coffees
+        </button>
+      )}
     </div>
   );
 };

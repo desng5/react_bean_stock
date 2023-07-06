@@ -3,7 +3,7 @@ import { CoffeeType } from "../types/coffee";
 
 type CoffeeFormProps = {
   handleSubmit: (e: FormEvent) => void;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void;
   newCoffee: CoffeeType;
 };
 
@@ -41,7 +41,7 @@ export const CoffeeForm = ({
           <textarea
             name="description"
             value={newCoffee.description}
-            onChange={() => handleChange}
+            onChange={handleChange}
           />
         </label>
         <label>Rating</label>

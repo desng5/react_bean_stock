@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const base = "https://brew-stock.onrender.com/api";
+const base = "https://bean-stock.onrender.com/api";
 
 export type APIResponse<T> = {
   error: string | undefined;

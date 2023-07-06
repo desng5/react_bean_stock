@@ -56,7 +56,7 @@ export const Home = ({ user, flashMessage }: HomeProps) => {
       flashMessage(newCoffee.name + " brewed successfully", "success");
     }
   };
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>): void => {
     setNewCoffee({ ...newCoffee, [e.target.name]: e.target.value });
   };
 

@@ -1,15 +1,15 @@
 import { CategoryType } from "../types/category";
 
-
 type AlertMessageProps = {
-    message: string | null;
-    category: CategoryType;
-    flashMessage: (message: string | null, category: CategoryType) => void;
-}
+  message: string | null;
+  category: CategoryType;
+  flashMessage: (message: string | null, category: CategoryType) => void;
+};
 
-
-export const AlertMessage = ({ message, category, flashMessage,}: AlertMessageProps) => {
-    return (
-        <div>{message}</div>
-    )
-}
+export const AlertMessage = ({
+  message,
+  category,
+  flashMessage,
+}: AlertMessageProps) => {
+  return <div>{message}</div>;
+};

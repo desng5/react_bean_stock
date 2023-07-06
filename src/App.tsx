@@ -74,7 +74,7 @@ export const App = () => {
         <Route
           path="/register"
           element={
-            <Register flashMessage={flashMessage} logUserIn={logUserIn} />
+            <Register logUserIn={logUserIn} flashMessage={flashMessage} />
           }
         />
       </Routes>

@@ -36,13 +36,14 @@ export const CoffeeForm = ({
           onChange={handleChange}
           type="text"
         />
-        <label>Description</label>
-        <input
-          name="description"
-          value={newCoffee.description}
-          onChange={handleChange}
-          type="text"
-        />
+        <label>
+          Description
+          <textarea
+            name="description"
+            value={newCoffee.description}
+            onChange={() => handleChange}
+          />
+        </label>
         <label>Rating</label>
         <input
           name="rating"

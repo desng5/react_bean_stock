@@ -34,7 +34,6 @@ export const CoffeeDisplay = ({
       <div>{coffee.rating}</div>
       <div>{coffee.brew_method}</div>
       <div>{coffee.roaster}</div>
-      <div>{coffee.image_url}</div>
       <div className="w-48">
         <img src={coffee.image_url} alt={coffee.name} />
       </div>

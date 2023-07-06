@@ -63,8 +63,12 @@ export const Home = ({ user, flashMessage }: HomeProps) => {
   };
 
   return (
-    <div>
-      <h1>Welcome {user?.username}</h1>
+    <div className="flex flex-col justify-center items-center">
+      {user ? (
+        <h1>Welcome {user?.username}</h1>
+      ) : (
+        <h1>Hello, please log in to continue!</h1>
+      )}
       {user && (
         <button
           onClick={() => {

@@ -53,7 +53,7 @@ export const App = () => {
   };
 
   return (
-    <div>
+    <div className="h-screen font-roboto">
       <Navigation loggedIn={loggedIn} logUserOut={logUserOut} />
       {message && (
         <AlertMessage

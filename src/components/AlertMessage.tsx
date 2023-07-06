@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CategoryType } from "../types/category";
 
 type AlertMessageProps = {
@@ -37,6 +37,16 @@ export const AlertMessage = ({
     }
   };
 
+  useEffect(() => {
+    if (message) {
+      setIsVisible(true);
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
   const handleClose = () => {
     setIsVisible(false);
     flashMessage(null, null);
@@ -44,15 +54,15 @@ export const AlertMessage = ({
 
   return isVisible ? (
     <div
-      className={`rounded p-4 ${getAlertStyle(
+      className={`w-fit rounded-full px-8 py-4 ${getAlertStyle(
         category
-      )} flex items-center justify-between`}
+      )} absolute bottom-10 left-0.5 right-0.5 mx-auto flex items-center justify-center`}
       role="alert"
     >
       <span>{message}</span>
       <button
         onClick={handleClose}
-        className="ml-4 rounded border border-black bg-transparent px-4 py-2 font-semibold text-black hover:border-transparent hover:text-white"
+        className="ml-4 rounded-full border border-transparent bg-transparent px-4 py-2 font-semibold text-white duration-200 hover:border-green-950 hover:text-green-950"
       >
         X
       </button>

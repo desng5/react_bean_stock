@@ -2,5 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Roboto";
+  src: url(https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap);
+}
+
 html {
+  background-image: linear-gradient(
+      rgba(50, 38, 38, 0.7),
+      rgba(67, 45, 43, 0.7),
+      rgba(81, 49, 46, 0.7),
+      rgba(101, 67, 53, 0.7),
+      rgba(111, 78, 55, 0.7)
+    ),
+    url(./assets/coffee-bg.jpg);
+  background-size: cover;
 }

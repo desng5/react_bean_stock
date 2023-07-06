@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 type NavigationProps = {
   loggedIn: boolean;
@@ -7,18 +7,28 @@ type NavigationProps = {
 
 export const Navigation = ({ loggedIn, logUserOut }: NavigationProps) => {
   return (
-    <div>
-      { loggedIn ? (
+    <div className="my-4 flex justify-center text-3xl font-bold text-amber-400">
+      {loggedIn ? (
         <>
-          <Link to='/' onClick={logUserOut}>Log Out</Link>
-          <Link to='/coffees'>Create Coffee</Link>
+          <Link className="mr-10" to="/" onClick={logUserOut}>
+            Log Out
+          </Link>
+          <span className="font-normal">|</span>
+          <Link className="ml-10" to="/coffees">
+            Create Coffee
+          </Link>
         </>
       ) : (
         <>
-          <Link to='/login'>Log In</Link>
-          <Link to='/register'>Register</Link>
+          <Link className="mr-10" to="/login">
+            Log In
+          </Link>
+          <span className="font-normal">|</span>
+          <Link className="ml-10" to="/register">
+            Register
+          </Link>
         </>
       )}
     </div>
-  )
+  );
 };

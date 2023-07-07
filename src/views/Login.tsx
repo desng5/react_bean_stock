@@ -43,7 +43,7 @@ export const Login = ({ logUserIn, flashMessage }: LoginProps) => {
   };
 
   return (
-    <div className="mx-auto flex w-fit flex-col items-center justify-center rounded-2xl border-4 border-double border-amber-50 bg-gradient-to-b from-amber-700 to-amber-950 px-6 py-20">
+    <div className="mx-auto flex px-6 w-fit flex-col items-center justify-center rounded-2xl border-4 border-double border-amber-50 bg-gradient-to-b from-amber-700 to-amber-950 py-20">
       <h1 className="mb-16 text-3xl text-amber-50">Login Here</h1>
       <form
         className="grid place-items-end gap-y-8 text-xl text-amber-50"

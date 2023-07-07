@@ -1,10 +1,9 @@
-import { useEffect, useState, FormEvent, ChangeEvent } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import { CoffeeForm } from "../components/CoffeeForm";
-import { CoffeeDisplay } from "../components/CoffeeDisplay";
 import { UserType } from "../types/user";
 import { CategoryType } from "../types/category";
 import { CoffeeType } from "../types/coffee";
-import { getAllCoffees, createCoffee } from "../lib/apiWrapper";
+import { createCoffee } from "../lib/apiWrapper";
 
 type HomeProps = {
   user: UserType | null;
@@ -12,7 +11,6 @@ type HomeProps = {
 };
 
 export const Home = ({ user, flashMessage }: HomeProps) => {
-  const [coffees, setCoffees] = useState<CoffeeType[]>([]);
   const [newCoffee, setNewCoffee] = useState<CoffeeType>({
     name: "",
     coffee_type: "",
@@ -24,16 +22,6 @@ export const Home = ({ user, flashMessage }: HomeProps) => {
   });
   const [displayCoffee, setDisplayCoffee] = useState(false);
   const [update, setUpdate] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getAllCoffees();
-      if (response.data) {
-        setCoffees(response.data);
-      }
-    };
-    fetchData();
-  }, [update]);
 
   const handleFormSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
@@ -53,7 +41,7 @@ export const Home = ({ user, flashMessage }: HomeProps) => {
         roaster: "",
       });
       setDisplayCoffee(false);
-      flashMessage(newCoffee.name + " brewed successfully", "success");
+      flashMessage(newCoffee.name + " brewed successfully! Check 'Your Brews'", "success");
     }
   };
   const handleInputChange = (
@@ -61,50 +49,38 @@ export const Home = ({ user, flashMessage }: HomeProps) => {
   ): void => {
     setNewCoffee({ ...newCoffee, [e.target.name]: e.target.value });
   };
+  const handleRatingChange = (value: number) => {
+    setNewCoffee({ ...newCoffee, rating: value });
+  };
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col items-center justify-center">
       {user ? (
-        <h1>Welcome {user?.username}</h1>
+        <h1 className="text-3xl text-amber-50">
+          Welcome <span className="text-amber-400">{user?.username}</span>
+        </h1>
       ) : (
-        <h1>Hello, please log in to continue!</h1>
+        <h1 className="text-3xl text-amber-50">
+          Hello, please log in to continue!
+        </h1>
       )}
       {user && (
         <button
+          className="mt-8 rounded-full border-4 border-amber-50 px-6 py-1 text-amber-50 duration-200 hover:border-amber-400 hover:text-amber-400"
           onClick={() => {
             setDisplayCoffee(!displayCoffee);
           }}
         >
-          {displayCoffee ? "Close X" : "Brew +"}
+          {displayCoffee ? "Close" : "Brew"}
         </button>
       )}
       {displayCoffee && user && (
         <CoffeeForm
           handleSubmit={handleFormSubmit}
           handleChange={handleInputChange}
+          handleRatingChange={handleRatingChange}
           newCoffee={newCoffee}
         />
-      )}
-      {user &&
-        coffees
-          .filter((coffee) => coffee.user_id === user.id)
-          .map((coffee) => (
-            <CoffeeDisplay
-              key={coffee.id}
-              coffee={coffee}
-              user={user}
-              setUpdate={setUpdate}
-              update={update}
-            />
-          ))}
-      {user && (
-        <button
-          onClick={() => {
-            setCoffees([]);
-          }}
-        >
-          Dump All Coffees
-        </button>
       )}
     </div>
   );

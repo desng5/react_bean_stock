@@ -107,6 +107,27 @@ export const createCoffee = async (
   return { error, data };
 };
 
+export const editCoffee = async (
+  coffeeId: number,
+  updatedCoffee: CoffeeType,
+  token: string
+): Promise<APIResponse<CoffeeType>> => {
+  let error, data;
+  try {
+    const response: AxiosResponse<CoffeeType> = await apiClientTokenAuth(
+      token
+    ).put(coffeeEndpoint + "/" + coffeeId, updatedCoffee);
+    data = response.data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      error = err.response?.data.error;
+    } else {
+      error = "Something went wrong during editCoffee";
+    }
+  }
+  return { error, data };
+};
+
 export const deleteCoffee = async (
   coffeeId: number,
   token: string

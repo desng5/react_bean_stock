@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { Register } from "./views/Register";
-import { Login } from "./views/Login";
 import { Home } from "./views/Home";
+import { Login } from "./views/Login";
+import { Register } from "./views/Register";
+import { Coffees } from "./views/Coffees";
 import { Navigation } from "./components/Navigation";
 import { AlertMessage } from "./components/AlertMessage";
 import { UserType } from "./types/user";
@@ -10,6 +11,7 @@ import { CategoryType } from "./types/category";
 import { getMe } from "./lib/apiWrapper";
 
 export const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(
     (localStorage.getItem("token") &&
       new Date(localStorage.getItem("tokenExp") as string) > new Date()) ||
@@ -21,12 +23,16 @@ export const App = () => {
 
   useEffect(() => {
     const getLoggedInUser = async () => {
+      setIsLoading(true);
       const token = localStorage.getItem("token");
       const response = await getMe(token!);
       setLoggedInUser(response.data!);
+      setIsLoading(false);
     };
     if (loggedIn) {
       getLoggedInUser();
+    } else {
+      setIsLoading(false);
     }
   }, []);
 
@@ -51,6 +57,10 @@ export const App = () => {
     localStorage.removeItem("tokenExp");
     flashMessage("You are now logged out", "info");
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>; // Loading screen
+  }
 
   return (
     <div className="h-screen font-roboto">
@@ -77,6 +87,7 @@ export const App = () => {
             <Register logUserIn={logUserIn} flashMessage={flashMessage} />
           }
         />
+        <Route path="/coffees" element={<Coffees user={loggedInUser} />} />
       </Routes>
     </div>
   );

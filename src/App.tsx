@@ -59,7 +59,17 @@ export const App = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; // Loading screen
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <lord-icon
+          src="https://cdn.lordicon.com/gkpgwfag.json"
+          trigger="loop"
+          delay="2000"
+          colors="primary:#121331,secondary:#ebe6ef,tertiary:#646e78,quaternary:#92140c,quinary:#3a3347,senary:#b26836"
+          style={{ width: 250, height: 250 }}
+        ></lord-icon>
+      </div>
+    );
   }
 
   return (

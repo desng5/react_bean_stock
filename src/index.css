@@ -16,5 +16,8 @@ html {
       rgba(111, 78, 55, 0.7)
     ),
     url(./assets/bean-bg.jpg);
+  background-position: center;
   background-size: cover;
-}
+  background-attachment: fixed;
+  scroll-snap-type: y mandatory;
+};

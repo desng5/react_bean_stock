@@ -16,7 +16,7 @@ The Coffee Review Web Application is built using:
     PostgreSQL: A powerful open-source relational database management system, chosen to store and retrieve data efficiently.
 
 ## How to run:
-1. - Clone repo ( https://github.com/desng5/react_bean_stock.git )
+1. Clone repo ( https://github.com/desng5/react_bean_stock.git )
 2. Open Terminal type - npm i (This will install all dependencies)
 3. npm run dev
 4. open by clicking  ( http://localhost:5173/ ) or pasting into browser after running the previous steps.

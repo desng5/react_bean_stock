@@ -1,4 +1,3 @@
-
 export type CoffeeType = {
   id?: number;
   name?: string;

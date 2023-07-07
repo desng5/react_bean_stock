@@ -15,9 +15,9 @@ html {
       rgba(101, 67, 53, 0.7),
       rgba(111, 78, 55, 0.7)
     ),
-    url(./assets/bean-bg.jpg);
+    url(./assets/coffee-bg.jpg);
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
   scroll-snap-type: y mandatory;
-};
+}
